@@ -2,7 +2,7 @@ import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon } from "@phosphor
 
 function Footer() {
 
-  let data = new Date().getFullYear()
+  const data = new Date().getFullYear()
 
   return (
     <>

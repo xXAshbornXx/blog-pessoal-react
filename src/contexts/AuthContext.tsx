@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, type ReactNode, useState } from "react";
-
+import { createContext, useState } from "react";
+import type { ReactNode } from "react";
 import type UsuarioLogin from "../models/UsuarioLogin";
 import { login } from "../services/Service";
 
@@ -32,12 +32,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
   async function handleLogin(usuarioLogin: UsuarioLogin) {
     setIsLoading(true);
     try {
-      await login(`/usuarios/logar`, usuarioLogin, setUsuario);
+      await login(`/usuarios/logar`, usuarioLogin, (resposta: unknown) => setUsuario(resposta as UsuarioLogin));
       alert("O Usuário foi autenticado com sucesso!");
     } catch {
       alert("Os Dados do usuário estão inconsistentes!");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }
 
   function handleLogout() {
@@ -52,9 +53,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }
 
   return (
-    <AuthContext.Provider
-      value={{ usuario, handleLogin, handleLogout, isLoading }}
-    >
+    <AuthContext.Provider value={{ usuario, handleLogin, handleLogout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
