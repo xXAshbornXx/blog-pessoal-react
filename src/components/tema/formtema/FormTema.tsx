@@ -27,7 +27,7 @@ function FormTema() {
   useEffect(() => {
     async function buscarPorId(id: string) {
       try {
-        await buscar(`/temas/${id}`, setTema, {
+        await buscar(`/temas/${id}`, (resposta: any) => setTema(resposta), {
           headers: { Authorization: token }
         });
       } catch (error: unknown) {
@@ -59,7 +59,7 @@ function FormTema() {
 
     if (id !== undefined) {
       try {
-        await atualizar('/temas', tema, setTema, {
+        await atualizar('/temas', tema, (resposta: any) => setTema(resposta), {
           headers: { Authorization: token }
         });
         alert('O Tema foi atualizado com sucesso!');
@@ -72,7 +72,7 @@ function FormTema() {
       }
     } else {
       try {
-        await cadastrar('/temas', tema, setTema, {
+        await cadastrar('/temas', tema, (resposta: any) => setTema(resposta), {
           headers: { Authorization: token }
         });
         alert('O Tema foi cadastrado com sucesso!');
@@ -92,12 +92,12 @@ function FormTema() {
   return (
     <div className="container flex flex-col items-center justify-center mx-auto">
       <h1 className="text-4xl text-center my-8">
-        {id !== undefined ? "Editar Tema" : "Cadastrar Tema"}
+        {id !== undefined ? 'Editar Tema' : 'Cadastrar Tema'}
       </h1>
 
       <form className="w-1/2 flex flex-col gap-4" onSubmit={gerarNovoTema}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="descricao">Descrição do Tema</label>
+          <label htmlFor="descricao">Descrição do Tema:</label>
 
           <input
             type="text"
