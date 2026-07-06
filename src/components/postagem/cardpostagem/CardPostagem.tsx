@@ -8,29 +8,33 @@ interface CardPostagensProps {
 function CardPostagem({ postagem }: CardPostagensProps) {
   return (
     <div className='border-slate-900 border flex flex-col rounded overflow-hidden justify-between'>
-
+      
       <div>
         <div className="flex w-full bg-indigo-400 py-2 px-4 items-center gap-4">
-          <img
-            src={postagem.usuario?.foto}
-            className='h-12 rounded-full'
-            alt={postagem.usuario?.nome}
-          />
+          
+          {/* AQUI ESTÁ A NOSSA CAPA DE PROTEÇÃO NA FOTO */}
+          {postagem.usuario?.foto !== "" && (
+            <img
+              src={postagem.usuario?.foto}
+              className='h-12 rounded-full'
+              alt={postagem.usuario?.nome}
+            />
+          )}
 
           <h3 className='text-lg font-bold text-center uppercase'>
             {postagem.usuario?.nome}
           </h3>
         </div>
-
+        
         <div className='p-4'>
           <h4 className='text-lg font-semibold uppercase'>
             {postagem.titulo}
           </h4>
-
+          
           <p>{postagem.texto}</p>
-
+          
           <p>Tema: {postagem.tema?.descricao}</p>
-
+          
           <p>
             Data:{' '}
             {new Intl.DateTimeFormat('pt-BR', {
@@ -40,7 +44,7 @@ function CardPostagem({ postagem }: CardPostagensProps) {
           </p>
         </div>
       </div>
-
+      
       <div className="flex">
         <Link
           to={`/editarpostagem/${postagem.id}`}
@@ -48,7 +52,7 @@ function CardPostagem({ postagem }: CardPostagensProps) {
         >
           <button>Editar</button>
         </Link>
-
+        
         <Link
           to={`/deletarpostagem/${postagem.id}`}
           className='text-white bg-red-400 hover:bg-red-700 w-full flex items-center justify-center'
@@ -56,6 +60,7 @@ function CardPostagem({ postagem }: CardPostagensProps) {
           <button>Deletar</button>
         </Link>
       </div>
+
     </div>
   )
 }
